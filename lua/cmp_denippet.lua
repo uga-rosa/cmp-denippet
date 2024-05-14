@@ -53,13 +53,6 @@ function source:resolve(completion_item, callback)
   callback(completion_item)
 end
 
-function source:execute(completion_item,callback)
-  local snippet = completion_item.data.snippet
-  local body = snippet.body
-  vim.fn["denippet#anonymous"](body)
-	callback(completion_item)
-end
-
 function source:_get_text_edit(params, prefix, body)
   local chars = vim.fn.split(vim.fn.escape(prefix, [[\/?]]), [[\zs]])
   local chars_pattern = [[\%(\V]] .. table.concat(chars, [[\m\|\V]]) .. [[\m\)]]
