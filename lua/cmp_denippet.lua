@@ -36,7 +36,8 @@ end
 
 function source:resolve(completion_item, callback)
   local snippet = completion_item.data.snippet
-  local body = vim.fn["denippet#to_string"](snippet.body) --[[@as string]]
+  local body = vim.fn["denippet#to_string_by_id"](snippet.id) --[[@as string]]
+  completion_item.data.snippet.body = body
   local documentation = vim.split(body:gsub("\r\n?", "\n"), "\n")
   if #documentation > 0 then
     table.insert(documentation, 1, "```" .. completion_item.data.filetype)
