@@ -6,10 +6,6 @@ function source.new()
   return setmetatable({}, { __index = source })
 end
 
-function source:get_keyword_pattern()
-  return "."
-end
-
 ---Invoke completion (required).
 ---@param params cmp.SourceCompletionApiParams
 ---@param callback fun(response: lsp.CompletionResponse|nil)
