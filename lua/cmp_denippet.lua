@@ -31,10 +31,14 @@ function source:complete(params, callback)
 end
 
 function source:resolve(completion_item, callback)
+  if completion_item.documentation then
+    callback(completion_item)
+    return
+  end
+
   local snippet = completion_item.data.snippet
-  local body = vim.fn["denippet#to_string_by_id"](snippet.id) --[[@as string]]
-  completion_item.data.snippet.body = body
-  local documentation = vim.split(body:gsub("\r\n?", "\n"), "\n")
+  local bodyStr = vim.fn["denippet#to_string_by_id"](snippet.id)
+  local documentation = vim.split(bodyStr:gsub("\r\n?", "\n"), "\n")
   if #documentation > 0 then
     table.insert(documentation, 1, "```" .. completion_item.data.filetype)
     table.insert(documentation, "```")
